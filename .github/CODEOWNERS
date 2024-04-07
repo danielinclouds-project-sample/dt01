@@ -1,4 +1,6 @@
+# General rule
 * @danielinclouds-project-sample/coders
 
+# Only devops team can approve changes to project or github terraform code
 /terraform/**/project @danielinclouds-project-sample/devops
 /terraform/**/github @danielinclouds-project-sample/devops
