@@ -1,4 +1,4 @@
 * @danielinclouds-project-sample/coders
 
-/terraform/**/project @danielinclouds
-/terraform/**/github @danielinclouds
+/terraform/**/project @danielinclouds-project-sample/devops
+/terraform/**/github @danielinclouds-project-sample/devops
