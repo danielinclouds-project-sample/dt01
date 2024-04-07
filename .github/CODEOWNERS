@@ -1,0 +1,6 @@
+* @danielinclouds-project-sample/coders
+
+/terraform/nonprod/github @danielinclouds
+/terraform/nonprod/project @danielinclouds
+/terraform/prod/github @danielinclouds
+/terraform/prod/project @danielinclouds
