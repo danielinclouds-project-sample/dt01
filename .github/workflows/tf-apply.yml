@@ -35,11 +35,6 @@ jobs:
       #     token_format: access_token
       #     credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
 
-      - name: Debug
-        run: |
-          echo $GITHUB_TOKEN
-          echo $GITHUB_OWNER
-
       - name: Terraform Init
         id:   terraform-init
         run: |
@@ -53,37 +48,36 @@ jobs:
           terraform plan -input=false -lock-timeout=120s
 
 
-  # terraform-apply:
-  #   name: Terraform Apply
-  #   environment: prod
-  #   runs-on: ubuntu-latest
-  #   needs: 
-  #     - terraform-plan
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
+  terraform-apply:
+    name: Terraform Apply
+    runs-on: ubuntu-latest
+    needs: 
+      - terraform-plan
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  #     - name: Terraform Setup
-  #       id:   terraform-setup
-  #       uses: hashicorp/setup-terraform@v3
-  #       with:
-  #         terraform_version: 1.5.7
+      - name: Terraform Setup
+        id:   terraform-setup
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.5.7
 
-  #     - name: Authenticate to Google Cloud
-  #       id:   auth
-  #       uses: 'google-github-actions/auth@v2'
-  #       with:
-  #         token_format: access_token
-  #         credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
+      # - name: Authenticate to Google Cloud
+      #   id:   auth
+      #   uses: 'google-github-actions/auth@v2'
+      #   with:
+      #     token_format: access_token
+      #     credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
 
-  #     - name: Terraform Init
-  #       id:   terraform-init
-  #       run: |
-  #         cd ${{ github.event.inputs.directory }}
-  #         terraform init
+      - name: Terraform Init
+        id:   terraform-init
+        run: |
+          cd ${{ github.event.inputs.directory }}
+          terraform init
 
-  #     - name: Terraform Apply
-  #       id:   terraform-apply
-  #       run: |
-  #         cd ${{ github.event.inputs.directory }}
-  #         terraform apply -input=false -lock-timeout=120s -auto-approve
+      - name: Terraform Apply
+        id:   terraform-apply
+        run: |
+          cd ${{ github.event.inputs.directory }}
+          terraform apply -input=false -lock-timeout=120s -auto-approve
