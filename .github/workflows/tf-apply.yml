@@ -81,3 +81,6 @@ jobs:
         run: |
           cd ${{ github.event.inputs.directory }}
           terraform apply -input=false -lock-timeout=120s -auto-approve
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_OWNER: danielinclouds-project-sample
