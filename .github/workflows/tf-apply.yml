@@ -57,6 +57,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: 872749
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
       - name: Terraform Setup
         id:   terraform-setup
         uses: hashicorp/setup-terraform@v3
@@ -82,5 +89,5 @@ jobs:
           cd ${{ github.event.inputs.directory }}
           terraform apply -input=false -lock-timeout=120s -auto-approve
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
           GITHUB_OWNER: danielinclouds-project-sample
